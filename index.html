@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#171a35">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Trip Tracker">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icon.svg">
+<title>Hyderabad Trip Tracker</title>
+<style>
+:root{--bg:#f4f5fa;--card:#fff;--ink:#191d31;--muted:#777f94;--line:#e8eaf1;--purple:#5b50e8;--purple2:#eeeefe;--green:#16845d;--red:#d04444}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+.hero{background:linear-gradient(135deg,#171a35,#37316d);color:#fff;padding:calc(25px + env(safe-area-inset-top)) 19px 55px}
+.wrap{max-width:850px;margin:auto}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#c8c5ff;font-weight:800}
+h1{font-size:clamp(29px,8vw,42px);line-height:1.08;letter-spacing:-1.3px;margin:12px 0 8px}.subtitle{margin:0;color:#d2d4e5;font-size:14px}
+.totalHero{margin-top:23px;padding:15px 17px;background:#ffffff13;border:1px solid #ffffff25;border-radius:17px}
+.totalHero span{font-size:12px;color:#d2d4e5}.totalHero strong{display:block;font-size:29px;margin-top:4px}
+main{max-width:850px;margin:-30px auto 0;padding:0 14px}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat,.card{background:var(--card);border:1px solid var(--line);border-radius:17px;box-shadow:0 5px 18px #20284a08}
+.stat{padding:15px}.stat small{font-size:12px;color:var(--muted)}.stat b{display:block;font-size:20px;margin-top:6px}
+.card{padding:18px;margin-top:14px}.card h2{font-size:18px;margin:0 0 5px}.hint{font-size:12px;color:var(--muted);margin:0 0 17px}
+label{display:block;font-size:13px;font-weight:700;color:#51596d;margin:13px 0 7px}
+input,textarea{width:100%;border:1px solid #dfe2ec;border-radius:12px;padding:13px;font:inherit;font-size:16px;background:#fff;color:var(--ink);outline:none}
+input:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px #5b50e81b}textarea{min-height:78px;resize:vertical}
+button{font:inherit;cursor:pointer;border:0}
+.primary{width:100%;margin-top:17px;background:var(--purple);color:#fff;border-radius:12px;padding:14px;font-weight:750;font-size:15px}
+.secondary{background:#f0f1f7;color:#555e72;border-radius:10px;padding:10px 13px;font-weight:650;font-size:13px}
+.formActions{display:flex;gap:9px}.formActions .primary{flex:1}
+.day{margin-top:16px}.dayLine{display:flex;justify-content:space-between;gap:10px;font-size:13px;margin-bottom:7px}.bar{height:8px;background:#eff0f5;border-radius:20px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#5b50e8,#9890ff);border-radius:20px}
+.historyTop{display:flex;align-items:center;justify-content:space-between;gap:8px}.export{background:var(--purple2);color:var(--purple);padding:9px 11px;border-radius:10px;font-size:12px;font-weight:750}
+.filters{display:flex;gap:7px;overflow:auto;padding:13px 0 4px}.chip{white-space:nowrap;background:#f0f1f6;color:#60697d;padding:8px 12px;border-radius:30px;font-size:12px;font-weight:700}.chip.active{background:var(--purple);color:white}
+.entry{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 0;border-top:1px solid var(--line)}
+.entryText{min-width:0}.reason{font-size:14px;font-weight:700;overflow-wrap:anywhere}.dateText{font-size:11px;color:var(--muted);margin-top:5px}
+.entryRight{display:flex;align-items:center;gap:6px;flex-shrink:0}.amount{font-weight:800;font-size:14px}.smallBtn{background:#f3f4f8;color:#626b7d;border-radius:8px;padding:8px 9px;font-size:13px}.del{color:var(--red)}
+.empty{text-align:center;padding:28px 10px;background:#fafbfc;color:var(--muted);border-radius:12px;font-size:13px;line-height:1.6}
+.tools{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:15px}.note{font-size:11px;color:var(--muted);line-height:1.5}
+.footer{text-align:center;color:#9aa1b0;font-size:11px;margin:20px 0 5px}
+@media(min-width:720px){main{padding:0 20px}.contentGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}.card{margin-top:14px}.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<div class="eyebrow">Your personal travel diary</div>
+<h1>Hyderabad Trip</h1>
+<p class="subtitle">12–15 November 2026 · 4 days / 3 nights</p>
+<div class="totalHero"><span>Total amount spent</span><strong id="heroTotal">₹0</strong></div>
+</div></header>
+<main>
+<section class="stats">
+<div class="stat"><small>Transactions</small><b id="count">0</b></div>
+<div class="stat"><small>Average per expense</small><b id="average">₹0</b></div>
+</section>
+<div class="contentGrid">
+<section class="card" id="formCard">
+<h2 id="formHeading">＋ Add an expense</h2><p class="hint">Just enter the amount, reason and date.</p>
+<form id="expenseForm">
+<label for="amount">Amount (₹)</label><input id="amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="Example: 350" required>
+<label for="reason">Reason for expense</label><textarea id="reason" maxlength="300" placeholder="Example: Lunch near Charminar" required></textarea>
+<label for="date">Date</label><input id="date" type="date" min="2026-11-12" max="2026-11-15" required>
+<div class="formActions"><button class="primary" id="saveBtn" type="submit">Add expense</button><button class="secondary" id="cancelBtn" type="button" hidden>Cancel</button></div>
+</form>
+</section>
+<div>
+<section class="card"><h2>Daily spending</h2><p class="hint">Your spending across the four trip days.</p><div id="daily"></div></section>
+<section class="card"><div class="historyTop"><div><h2>Expense history</h2><p class="hint" id="entriesLabel" style="margin:4px 0 0">0 entries</p></div><button class="export" id="exportBtn" type="button">↓ CSV</button></div>
+<div class="filters" id="filters"></div><div id="history"></div>
+<div class="tools"><button class="secondary" id="backupBtn" type="button">Backup data</button><button class="secondary" id="restoreBtn" type="button">Restore backup</button><input id="restoreFile" type="file" accept="application/json" hidden></div>
+<p class="note">Your entries are saved in this browser on this device. Use Backup data occasionally to keep a copy. They do not automatically sync to another phone.</p>
+</section>
+</div>
+</div>
+<p class="footer">Made for your Hyderabad trip ♥</p>
+</main>
+<script>
+const KEY="hyd-trip-personal-v2", DAYS=["2026-11-12","2026-11-13","2026-11-14","2026-11-15"];
+const $=id=>document.getElementById(id);
+const money=n=>new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",maximumFractionDigits:2}).format(n);
+const dateLabel=d=>new Date(d+"T12:00:00").toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"});
+let data=[];try{data=JSON.parse(localStorage.getItem(KEY)||"[]");if(!Array.isArray(data))data=[]}catch{data=[]}
+let editing=null,filter="all";
+function persist(){localStorage.setItem(KEY,JSON.stringify(data))}
+function safe(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function render(){
+ const total=data.reduce((s,x)=>s+Number(x.amount),0);
+ $("heroTotal").textContent=money(total);$("count").textContent=data.length;$("average").textContent=money(data.length?total/data.length:0);
+ $("daily").innerHTML=DAYS.map((d,i)=>{let v=data.filter(x=>x.date===d).reduce((s,x)=>s+Number(x.amount),0);return `<div class="day"><div class="dayLine"><span>Day ${i+1} · ${dateLabel(d)}</span><b>${money(v)}</b></div><div class="bar"><div class="fill" style="width:${total?v/total*100:0}%"></div></div></div>`}).join("");
+ $("filters").innerHTML=`<button class="chip ${filter==="all"?"active":""}" data-filter="all">All days</button>`+DAYS.map((d,i)=>`<button class="chip ${filter===d?"active":""}" data-filter="${d}">Day ${i+1}</button>`).join("");
+ $("filters").querySelectorAll("button").forEach(b=>b.onclick=()=>{filter=b.dataset.filter;render()});
+ const list=data.filter(x=>filter==="all"||x.date===filter).sort((a,b)=>b.date.localeCompare(a.date)||b.created-b.created);
+ $("entriesLabel").textContent=`${list.length} ${list.length===1?"entry":"entries"}`;
+ $("history").innerHTML=list.length?list.map(x=>`<div class="entry"><div class="entryText"><div class="reason">${safe(x.reason)}</div><div class="dateText">${dateLabel(x.date)}</div></div><div class="entryRight"><span class="amount">${money(x.amount)}</span><button class="smallBtn" data-edit="${x.id}" aria-label="Edit">✎</button><button class="smallBtn del" data-del="${x.id}" aria-label="Delete">×</button></div></div>`).join(""):`<div class="empty">No expenses recorded yet.<br>When you add one, it will appear here.</div>`;
+ $("history").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>edit(b.dataset.edit));
+ $("history").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>remove(b.dataset.del));
+ $("exportBtn").disabled=!data.length;$("exportBtn").style.opacity=data.length?1:.45;
+}
+function reset(){editing=null;$("expenseForm").reset();$("date").value=DAYS[0];$("formHeading").textContent="＋ Add an expense";$("saveBtn").textContent="Add expense";$("cancelBtn").hidden=true}
+function edit(id){let x=data.find(e=>e.id===id);if(!x)return;editing=id;$("amount").value=x.amount;$("reason").value=x.reason;$("date").value=x.date;$("formHeading").textContent="Edit expense";$("saveBtn").textContent="Save changes";$("cancelBtn").hidden=false;$("formCard").scrollIntoView({behavior:"smooth"})}
+function remove(id){if(!confirm("Delete this expense?"))return;data=data.filter(x=>x.id!==id);persist();if(editing===id)reset();render()}
+$("expenseForm").onsubmit=e=>{e.preventDefault();let amount=Number($("amount").value),reason=$("reason").value.trim(),date=$("date").value;if(!(amount>0)||!reason||!DAYS.includes(date)){alert("Please enter a valid amount, reason and trip date.");return}
+if(editing){let x=data.find(v=>v.id===editing);if(x)Object.assign(x,{amount,reason,date})}else data.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),amount,reason,date,created:Date.now()});
+persist();reset();render()};
+$("cancelBtn").onclick=reset;
+$("exportBtn").onclick=()=>{let rows=[["Date","Reason","Amount"],...data.map(x=>[x.date,x.reason,x.amount])];let csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\n");download(new Blob([csv],{type:"text/csv"}),"hyderabad-expenses.csv")};
+function download(blob,name){let u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+$("backupBtn").onclick=()=>download(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),"hyderabad-expenses-backup.json");
+$("restoreBtn").onclick=()=>$("restoreFile").click();
+$("restoreFile").onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let v=JSON.parse(await f.text());if(!Array.isArray(v)||!v.every(x=>x.amount&&x.reason&&DAYS.includes(x.date)))throw Error();if(confirm("Replace current expenses with this backup?")){data=v;persist();render()}}catch{alert("That backup file is not valid.")}e.target.value=""};
+let now=new Date().toLocaleDateString("en-CA");$("date").value=DAYS.includes(now)?now:DAYS[0];render();
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("/sw.js").catch(()=>{});
+</script>
+</body></html>
